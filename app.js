@@ -37,22 +37,25 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function () {
-    //Add current score to global score
-    scores[activePlayer] += roundScore;
 
-    //update the UI
-    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+        if(gamePlaying) {
+                //Add current score to global score
+        scores[activePlayer] += roundScore;
 
-    //check if player won the game
-    if (scores[activePlayer] >= 20) {
-        document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
-        document.querySelector('.dice').style.display = 'none';
-        document.querySelector('.player-'+ activePlayer + '-panel').classList.add('winner');
-        document.querySelector('.player-'+ activePlayer + '-panel').classList.remove('active');
-        gamePlaying = false;
-    } else {
-         //Next player
-        nextPlayer();
+        //update the UI
+        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+
+        //check if player won the game
+        if (scores[activePlayer] >= 20) {
+            document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
+            document.querySelector('.dice').style.display = 'none';
+            document.querySelector('.player-'+ activePlayer + '-panel').classList.add('winner');
+            document.querySelector('.player-'+ activePlayer + '-panel').classList.remove('active');
+            gamePlaying = false;
+        } else {
+            //Next player
+            nextPlayer();
+        }
     }
 
 });
@@ -80,6 +83,7 @@ function init() {
     scores = [0, 0];
     activePlayer = 0;
     roundScore = 0;
+    gamePlaying = true;
 
     document.querySelector('.dice').style.display = 'none';
 
